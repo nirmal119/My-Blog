@@ -1,39 +1,47 @@
 package com.project.blog.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
 @Table(name = "posts")
-public class post {
+public class Post {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
-    //    @NotBlank(message="is required")
+    @NotBlank(message="is required")
     @Column(name="title")
     private String title;
 
+    @NotBlank(message="is required")
     @Column(name="excerpt")
     private String excerpt;
 
+    @NotBlank(message="is required")
     @Column(name="content")
     private String content;
 
+    @NotBlank(message="is required")
     @Column(name="author")
     private String author;
 
+    @NotBlank(message="is required")
     @Column(name="published_at")
     private Date publishedAt;
 
+    @NotBlank(message="is required")
     @Column(name="is_published")
     private boolean isPublished;
 
+    @NotBlank(message="is required")
     @Column(name="created_at")
     private Date createdAt;
 
+    @NotBlank(message="is required")
     @Column(name="updated_at")
     private Date updatedAt;
 
@@ -110,4 +118,18 @@ public class post {
         this.updatedAt = updatedAt;
     }
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", excerpt='" + excerpt + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                ", publishedAt=" + publishedAt +
+                ", isPublished=" + isPublished +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }
