@@ -1,12 +1,15 @@
 package com.project.blog.service.impl;
 
+import com.project.blog.service.PostService;
 import com.project.blog.entity.Post;
 import com.project.blog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PostServiceImpl implements PostService {
 
-    private final PostRepository postRepository;
+    private PostRepository postRepository;
 
     @Autowired
     public PostServiceImpl(PostRepository thePostRepository) {

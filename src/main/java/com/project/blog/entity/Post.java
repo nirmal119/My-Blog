@@ -1,5 +1,8 @@
 package com.project.blog.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -13,36 +16,42 @@ public class Post {
     @Column(name="id")
     private int id;
 
-    @NotBlank(message="is required")
+//    @NotBlank(message="is required")
     @Column(name="title")
     private String title;
 
-    @NotBlank(message="is required")
+//    @NotBlank(message="is required")
     @Column(name="excerpt")
     private String excerpt;
 
-    @NotBlank(message="is required")
+//    @NotBlank(message="is required")
     @Column(name="content")
     private String content;
 
-    @NotBlank(message="is required")
+//    @NotBlank(message="is required")
     @Column(name="author")
     private String author;
 
-    @NotBlank(message="is required")
+//    @NotBlank(message="is required")
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="published_at")
+    @CreationTimestamp
     private Date publishedAt;
 
-    @NotBlank(message="is required")
+//    @NotBlank(message="is required")
     @Column(name="is_published")
     private boolean isPublished;
 
-    @NotBlank(message="is required")
+//    @NotBlank(message="is required")
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="created_at")
+    @CreationTimestamp
     private Date createdAt;
 
-    @NotBlank(message="is required")
+//    @NotBlank(message="is required")
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="updated_at")
+    @UpdateTimestamp
     private Date updatedAt;
 
 
