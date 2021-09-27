@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 //@RequestMapping("/posts")
@@ -41,6 +42,24 @@ public class PostController {
 
 
             return "redirect:/";
+        }
+    }
+
+    @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
+    public String getPostWithId(@PathVariable int id,
+                                Model model) {
+
+        Optional<Post> optionalPost = postService.findPostById(id);
+
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+
+            model.addAttribute("post", post);
+
+            return "/post";
+
+        } else {
+            return "/fail";
         }
     }
 }
