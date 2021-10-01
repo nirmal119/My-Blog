@@ -4,6 +4,8 @@ import com.project.blog.service.PostService;
 import com.project.blog.entity.Post;
 import com.project.blog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -26,5 +28,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public Optional<Post> findPostById(int id) {
         return postRepository.findById(id);
+    }
+
+    @Override
+    public Page<Post> findAllPostsOrderedByDate(int page) {
+        return postRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(page, 2));
     }
 }
