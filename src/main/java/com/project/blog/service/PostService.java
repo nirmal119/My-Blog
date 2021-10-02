@@ -11,5 +11,12 @@ public interface PostService {
 
     public void save(Post post);
     Optional<Post> findPostById(int id);
-    Page<Post> findAllPostsOrderedByDate(int page);
+//    Page<Post> findAllPostsOrderedByDateDesc(int page);
+//    Page<Post> findAllPostsOrderedByDateAsc(int page);
+
+    Page<Post> getAllPosts(int pageNo, String sortField, String sortDirection);
+
+    Page<Post> searchPosts(int pageNo, String sortField, String sortDirection, String search);
+
+
 }

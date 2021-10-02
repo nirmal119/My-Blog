@@ -22,7 +22,7 @@ public class PostController {
         postService = thePostService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/create")
     public String homePage(Model model){
         Post post = new Post();
         Tag tag = new Tag();

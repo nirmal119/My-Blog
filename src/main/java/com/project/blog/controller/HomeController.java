@@ -20,15 +20,56 @@ public class HomeController {
         this.postService = postService;
     }
 
+
+    @GetMapping("/")
+    public  String ViewHomePage(Model model){
+        return home(1, "publishedAt", "desc", model);
+    }
+
     @GetMapping("/home/{offset}")
     public String home(@PathVariable int offset,
+                       @RequestParam("sortField") String sortField,
+                       @RequestParam("order") String order,
                        Model model) {
 
-        Page<Post> posts = postService.findAllPostsOrderedByDate(offset);
+//        Page<Post> posts = postService.findAllPostsOrderedByDateDesc(offset);
+//        Page<Post> OrderedPostsAsc = postService.findAllPostsOrderedByDateAsc(offset);
 
+        Page<Post> posts = postService.getAllPosts(offset, sortField, order);
+
+
+//        model.addAttribute("OrderedPostsAsc",OrderedPostsAsc );
         model.addAttribute("posts",posts );
         model.addAttribute("page", offset);
         model.addAttribute("totalPages", posts.getTotalPages());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("order", order);
+
+        return "/home";
+    }
+
+    @GetMapping("/home/search/{offset}")
+    public String search(@PathVariable int offset,
+                       @RequestParam(value="sortField", defaultValue = "publishedAt") String sortField,
+                       @RequestParam(value = "order", defaultValue = "desc") String order,
+                         @RequestParam(value = "search", required = false) String search,
+                       Model model) {
+
+//        Page<Post> posts = postService.findAllPostsOrderedByDateDesc(offset);
+//        Page<Post> OrderedPostsAsc = postService.findAllPostsOrderedByDateAsc(offset);
+
+        Page<Post> posts = postService.searchPosts(offset, sortField, order, search);
+
+
+//        model.addAttribute("OrderedPostsAsc",OrderedPostsAsc );
+        model.addAttribute("posts", posts);
+        model.addAttribute("page", offset);
+        model.addAttribute("totalPages", posts.getTotalPages());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("order", order);
+        model.addAttribute("search", search);
 
         return "/home";
     }
