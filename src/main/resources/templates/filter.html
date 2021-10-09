@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>filter</title>
+    <style>
+       .body{
+            width: 80%;
+            height: 100%;
+            border: 3px solid black;
+            border-inline-style: solid;
+             margin-left: auto;
+             margin-right: auto;
+             padding: 20px 20px 20px 20px;
+             margin: 20px auto 20px auto;
+        }
+        table, th, td {
+         border: 1px solid black;
+         border-collapse: collapse;
+}
+    </style>
 </head>
 <body>
 
+<div align="right">
+    <a th:href="@{/}">
+        <button type="button" >Home</button>
+    </a>
+</div>
+
+<div>
 <a th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
    th:href="${urlBuilder.replaceQueryParam('order', 'asc').toUriString()}">
     <button type="button" >older first</button>
@@ -15,21 +38,42 @@
 th:href="${urlBuilder.replaceQueryParam('order', 'desc').toUriString()}">
 <button type="button" >latest first</button>
 </a>
-
+</div>
 <form th:action="@{/search}">
     <input type="text" th:name="search"/>
     <input type="submit" value="search"/>
 </form>
-<div align="center" th:each="post : ${posts}">
+<br>
+<div class="body" align="center" th:each="post : ${posts}">
     <div>
         <h1 th:text="${post.title}" >Title</h1>
-        <div th:text="'Created: ' + ${#dates.format(post.createdAt, 'dd-MMM-yyyy')} + ' by '">Created by</div><div><a th:text="${post.author}">User</a></div>
-        <h5 th:text="${post.excerpt}">Body</h5>
+        <div th:text="'Created: ' + ${#dates.format(post.createdAt, 'dd-MMM-yyyy')} + ' by '">Created by</div><div><a th:text="${post.author}">User</a>
+    </div >
+        <div align="justify">
+           <h5 th:text="${post.excerpt}">Body</h5>
+        </div>
+        <div  align="center">
+            <table border="1">
+                <thead>
+                <tr>
+                    <th> Tags </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tag : ${post.tags}">
+                    <td><span th:text="${tag.name}"> </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+
         <a th:href="@{'/post/' + ${post.id}}">
             <button type="button" th:text="Read">Read</button>
         </a>
     </div>
 </div>
+<br>
 
 <a th:if="${page > 1}"
    th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
@@ -37,7 +81,7 @@ th:href="${urlBuilder.replaceQueryParam('order', 'desc').toUriString()}">
     <button type="button" >previous</button>
 </a>
 
-<a th:if="${page < totalPages}"
+<a
    th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
    th:href="${urlBuilder.replaceQueryParam('start', page+1).toUriString()}">
     <button type="button" >next</button>

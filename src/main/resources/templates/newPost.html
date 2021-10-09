@@ -5,7 +5,11 @@
     <title>New Post</title>
 </head>
 <body>
-
+<div align="right">
+    <a th:href="@{/}">
+        <button type="button" >Home</button>
+    </a>
+</div>
 <div >
     <form action="#" th:action="@{/save}"
           th:object="${post}" method="POST">
@@ -16,25 +20,15 @@
             <input type="text" th:field="*{title}" placeholder="Title"/>
         </div>
 
-        <div>
-            <input type="text" th:field="*{excerpt}" placeholder="Excerpt"/>
-        </div>
-
-
-
         <div >
-            <textarea th:field="*{content}" placeholder="content"/></textarea>
+            <textarea  cols="100" rows="50" th:field="*{content}" placeholder="content"/></textarea>
         </div>
 
 
         <input type="hidden" th:field="*{author}"/>
-<!--        <input type="hidden" th:field="*{id}"/>-->
-
-<!--        <input type="text" th:object="${tag}" th:field="*{name}" placeholder="tags"/>-->
-<!--        <input type="text" th:object="${tag}" placeholder="tags"/>-->
         <div th:object="${tag}" >
 
-            <input type="text" th:field="*{name}"/>
+            <input type="text" th:field="*{name}" placeholder="add tags"/>
 
         </div>
 
@@ -44,8 +38,15 @@
     </form>
 </div>
 
-<a th:href="@{post/5}">
-    <button type="button" class="btn btn-primary btn-block" th:text="View">View</button>
-</a>
+<div th:if="${post.id}">
+    <div >
+        <form action="#" th:action="@{'/post/{id}'(id=${post.id})}" th:method="delete">
+            <div >
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit"  th:text="Delete">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

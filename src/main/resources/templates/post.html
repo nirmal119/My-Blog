@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>View Post</title>
 </head>
 <body>
+<div align="right">
+    <a th:href="@{/}">
+        <button type="button" >Home</button>
+    </a>
+</div>
   <div>
       <h1 th:text="${post.title}">Title</h1>
-      <div th:text="'Created: ' + ${#dates.format(post.createdAt, 'dd-MMM-yyyy')} + ' by '">Created by</div>
-      <div><a th:text="${post.author}">User</a></div>
+      <div th:text="'Created At: ' + ${#dates.format(post.createdAt, 'dd-MMM-yyyy HH:mm')}"></div>
+      <div><a th:text="'by: '+${post.author}">User</a></div>
       <!--      <div><a th:text="${post.user.username}" th:href="@{'/blog/' + ${post.user.username}}">User</a></div>-->
 
       <table>
@@ -18,16 +23,52 @@
           </tr>
           </thead>
           <tbody>
-
+          <br>
           </tr>
           <tr th:each="tag : ${post.tags}">
               <td><span th:text="${tag.name}"> Title </span></td>
           </tr>
           </tbody>
       </table>
+<br>
 
-      <h3 th:text="${post.content}">Body</h3>
-
+      <div th:text="${post.content}">Body</div>
   </div>
+
+  <br>
+  <!--Only show these buttons if the user is the owner of post-->
+  <div sec:authorize="isAuthenticated()" th:if="${username}">
+      <div >
+          <a th:href="@{'/editPost/{id}'(id=${post.id})}">
+              <button type="button"  th:text="Edit">Edit</button>
+          </a>
+      </div>
+  </div>
+
+  <div th:each="comment : ${comments}">
+      <h4>Comments</h4>
+      <div th:text="${comment.comment}">comment</div>
+      <br>
+      <div th:text="'Updated at: ' + ${#dates.format(comment.updatedAt, 'dd-MMM-yyyy')} + ' by '"></div>
+      <div><a th:text="'by: '+${comment.name}"></a>
+      </div>
+      <br>
+      <div sec:authorize="isAuthenticated()" th:if="${username}">
+          <div >
+              <a th:href="@{/editComment/{id}/{commentId}(id=${post.id},commentId=${comment.id})}">
+                  <button type="button"  th:text="Edit">Edit Comment</button>
+              </a>
+
+          </div>
+      </div>
+  </div>
+  <div>
+      <div>
+          <a th:href="@{'/commentPost/{id}'(id=${post.id})}" >
+              <button type="button"th:text="Comment">Comment</button>
+          </a>
+      </div>
+  </div>
+
 </body>
 </html>
