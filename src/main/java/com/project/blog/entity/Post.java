@@ -2,9 +2,7 @@ package com.project.blog.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,41 +14,33 @@ public class Post {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
-    private int id;
+    private Long id;
 
-//    @NotBlank(message="is required")
     @Column(name="title")
     private String title;
 
-//    @NotBlank(message="is required")
     @Column(name="excerpt")
     private String excerpt;
 
-//    @NotBlank(message="is required")
     @Column(name="content")
     private String content;
 
-//    @NotBlank(message="is required")
     @Column(name="author")
     private String author;
 
-//    @NotBlank(message="is required")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="published_at")
     @CreationTimestamp
     private Date publishedAt;
 
-//    @NotBlank(message="is required")
     @Column(name="is_published")
     private boolean isPublished;
 
-//    @NotBlank(message="is required")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="created_at")
     @CreationTimestamp
     private Date createdAt;
 
-//    @NotBlank(message="is required")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="updated_at")
     @UpdateTimestamp
@@ -64,11 +54,11 @@ public class Post {
     private Set<Tag> tags = new HashSet<>();
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -1,6 +1,5 @@
 package com.project.blog.entity;
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Table(name = "member", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
@@ -20,8 +19,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "author")
-    private Collection<Post> posts;
+    @Column(name = "user_role")
+    private String role;
 
     public Long getId() {
         return id;
@@ -55,11 +54,11 @@ public class User {
         this.password = password;
     }
 
-    public Collection<Post> getPosts() {
-        return posts;
+    public String getRole() {
+        return role;
     }
 
-    public void setPosts(Collection<Post> posts) {
-        this.posts = posts;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

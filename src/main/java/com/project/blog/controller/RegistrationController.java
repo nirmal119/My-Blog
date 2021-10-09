@@ -1,9 +1,9 @@
 package com.project.blog.controller;
 
-import com.project.blog.entity.Post;
 import com.project.blog.entity.User;
 import com.project.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class RegistrationController {
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     private final UserService userService;
 
     @Autowired
@@ -21,10 +23,8 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-
         model.addAttribute("user", new User());
         return "/registration";
     }
@@ -33,8 +33,6 @@ public class RegistrationController {
     public String createNewUser(@ModelAttribute("user") User user,
                                 BindingResult bindingResult,
                                 Model model) {
-
-
         if (userService.findByEmail(user.getEmail()).isPresent()) {
             bindingResult
                     .rejectValue("email", "error.user",
@@ -43,18 +41,16 @@ public class RegistrationController {
         if (userService.findByName(user.getName()).isPresent()) {
             bindingResult
                     .rejectValue("name", "error.user",
-                            "There is already a user registered with the username provided");
+                            "There is already a user registered with the Name provided");
         }
 
         if (!bindingResult.hasErrors()) {
-            // Registration successful, save user
-            // Set user role to USER and set it as active
+            user.setRole("ROLE_USER");
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.save(user);
-
             model.addAttribute("successMessage", "User has been registered successfully");
             model.addAttribute("user", new User());
         }
-
         return "/registration";
     }
 }

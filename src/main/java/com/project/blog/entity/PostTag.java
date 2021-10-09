@@ -2,7 +2,6 @@ package com.project.blog.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,12 +19,12 @@ public class PostTag {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="created_at")
     @CreationTimestamp
-    private Date created_at;
+    private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="updated_at")
+    @Column(name="updatedAt")
     @UpdateTimestamp
-    private Date updated_at;
+    private Date updatedAt;
 
     public int getPostId() {
         return postId;
@@ -43,19 +42,19 @@ public class PostTag {
         this.tagId = tagId;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Date created_at) {
+        this.createdAt = created_at;
     }
 
-    public Date getUpdated_at() {
-        return updated_at;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(Date updated_at) {
+        this.updatedAt = updated_at;
     }
 }
