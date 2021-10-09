@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Post</title>
+</head>
+<body>
+<div align="right">
+    <a th:href="@{/}">
+        <button type="button" >Home</button>
+    </a>
+</div>
+<div >
+    <form action="#" th:action="@{/update}"
+          th:object="${post}" method="POST">
+
+        <h2 align="center" >Edit post</h2>
+
+
+
+        <div align="center">
+            <input type="text" th:field="*{title}" placeholder="Title"/>
+        </div>
+
+           <br>
+
+        <div align="center">
+            <textarea cols="100" rows="50" th:field="*{content}" placeholder="content"/></textarea>
+        </div>
+        <br>
+        <input type="hidden" th:field="*{author}"/>
+                <input type="hidden" th:field="*{id}"/>
+
+        <div th:object="${tag}" align="center">
+
+            <input type="text" th:field="*{name}" placeholder="add new tags" />
+
+        </div>
+        <div align="center">
+            <table>
+                <thead>
+                <tr>
+                    <th> Tags </th>
+                </tr>
+                </thead>
+                <tbody>
+                <br>
+                </tr>
+                <tr th:each="tag : ${post.tags}">
+                    <td><span th:text="${tag.name}"> Title </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div >
+            <input type="submit"  value="Save"/>
+        </div>
+    </form>
+</div>
+
+<div th:if="${post.id}">
+    <div >
+        <form action="#" th:action="@{'/post/{id}'(id=${post.id})}" th:method="delete">
+            <div >
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit"  th:text="Delete">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

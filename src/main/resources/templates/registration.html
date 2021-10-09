@@ -5,6 +5,11 @@
     <title>register</title>
 </head>
 <body>
+<div align="right">
+    <a th:href="@{/}">
+        <button type="button" >Home</button>
+    </a>
+</div>
     <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
 
 
