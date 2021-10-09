@@ -35,7 +35,7 @@ import java.util.Optional;
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> userOptional = findByName(username);
 
-        if(userOptional.isEmpty()){
+        if(!userOptional.isPresent()){
             throw new UsernameNotFoundException("User not found!");
         }
         User user = userOptional.get();
