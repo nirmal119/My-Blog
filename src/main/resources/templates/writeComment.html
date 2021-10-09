@@ -5,7 +5,11 @@
     <title>Write Comment</title>
 </head>
 <body>
-
+<div align="right">
+  <a th:href="@{/}">
+    <button type="button" >Home</button>
+  </a>
+</div>
 <div>
   <form autocomplete="off" action="#" th:action="@{/createComment}"
         th:object="${newComment}" method="post" role="form">

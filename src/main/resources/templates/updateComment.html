@@ -5,7 +5,11 @@
     <title>Edit Comment</title>
 </head>
 <body>
-
+<div align="right">
+    <a th:href="@{/}">
+        <button type="button" >Home</button>
+    </a>
+</div>
 <div>
     <form autocomplete="off" action="#" th:action="@{/updateComment}"
           th:object="${comment}" method="post" role="form">
