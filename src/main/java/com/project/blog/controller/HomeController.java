@@ -67,7 +67,7 @@ public class HomeController {
             model.addAttribute("username", principal.getName());
         }
         System.out.println("line1");
-        return "/home";
+        return "home";
     }
 
     @GetMapping("/search")
