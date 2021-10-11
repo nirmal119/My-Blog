@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,11 +38,15 @@ public class HomeController {
                        @RequestParam(value = "order", defaultValue = "desc") String order,
                        Principal principal,
                        Model model) throws ParseException {
+        System.out.println("line1");
         Page<Post> posts = postService.getAllPosts(start, sortField, order);
+        System.out.println("line2");
         List<String> authors = postService.getAuthors();
+        System.out.println("line3");
         List<Date> publishDates = postService.getPublishDate();
-
+        System.out.println("line4");
         Set<LocalDate> dates = new HashSet<>();
+        System.out.println("line5");
 
         for(Date date : publishDates){
             ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -61,7 +66,7 @@ public class HomeController {
         if (hasRole("ROLE_USER") || hasRole("ROLE_ADMIN")) {
             model.addAttribute("username", principal.getName());
         }
-
+        System.out.println("line1");
         return "/home";
     }
 
