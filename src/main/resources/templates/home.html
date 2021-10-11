@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -80,7 +80,6 @@
                   </thead>
                   <tbody>
 
-                  </tr>
                   <tr th:each="tag : ${post.tags}">
                       <td><span th:text="${tag.name}"> </span></td>
                   </tr>
@@ -88,7 +87,7 @@
               </table>
           </div>
 
-          <br></br>
+          <br/>
           <a th:href="@{'/post/' + ${post.id}}">
               <button type="button" th:text="Read">Read</button>
           </a>
