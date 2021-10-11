@@ -58,7 +58,7 @@ public class HomeController {
         model.addAttribute("totalPages", posts.getTotalPages());
         model.addAttribute("sortField", sortField);
         model.addAttribute("order", order);
-        if (hasRole() || hasRole()) {
+        if (hasRole("ROLE_USER") || hasRole("ROLE_ADMIN")) {
             model.addAttribute("username", principal.getName());
         }
 
@@ -70,11 +70,22 @@ public class HomeController {
                        @RequestParam(value="sortField", defaultValue = "publishedAt") String sortField,
                        @RequestParam(value = "order", defaultValue = "desc") String order,
                          @RequestParam(value = "search", required = false) String search,
+                         Principal principal,
                        Model model) {
         Page<Post> posts = postService.searchPosts(start, sortField, order, search);
         List<String> authors = postService.getAuthors();
         List<String> tags = tagService.getTags();
         List<Date> publishDates = postService.getPublishDate();
+
+        Set<LocalDate> dates = new HashSet<>();
+
+        for(Date date : publishDates){
+            ZoneId defaultZoneId = ZoneId.systemDefault();
+            Instant instant = date.toInstant();
+            LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+            dates.add(localDate);
+        }
+
         model.addAttribute("tags", tags);
         model.addAttribute("authors", authors);
         model.addAttribute("posts", posts);
@@ -83,7 +94,10 @@ public class HomeController {
         model.addAttribute("sortField", sortField);
         model.addAttribute("order", order);
         model.addAttribute("search", search);
-        model.addAttribute("publishedAt", publishDates);
+        model.addAttribute("publishedAt", dates);
+        if (hasRole("ROLE_USER") || hasRole("ROLE_ADMIN")) {
+            model.addAttribute("username", principal.getName());
+        }
         return "/home";
     }
 
@@ -121,9 +135,9 @@ public class HomeController {
         return principal != null && principal.getName().equals(post.getAuthor());
     }
 
-    private boolean hasRole()
+    private boolean hasRole(String role)
     {
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
-                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(role));
     }
 }
