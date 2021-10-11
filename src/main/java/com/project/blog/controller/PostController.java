@@ -73,7 +73,7 @@ public class PostController {
         }
         else {
             postService.save(post);
-            return "redirect:/";
+            return "redirect:";
         }
     }
 
