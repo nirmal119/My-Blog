@@ -129,9 +129,9 @@ public class PostController {
             if (isPrincipalOwnerOfPost(principal, post) || hasRole()) {
                 model.addAttribute("username", principal.getName());
             }
-            return "/post";
+            return "post";
         } else {
-            return "/fail";
+            return "fail";
         }
     }
 
@@ -147,12 +147,12 @@ public class PostController {
             if (isPrincipalOwnerOfPost(principal, post) || hasRole()) {
                 model.addAttribute("post", post);
                 model.addAttribute("tag", tag);
-                return "/updatePost";
+                return "updatePost";
             } else {
-                return "/fail";
+                return "fail";
             }
         } else {
-            return "/fail";
+            return "fail";
         }
     }
 
@@ -167,10 +167,10 @@ public class PostController {
                 postService.delete(post);
                 return "redirect:/";
             } else {
-                return "/403";
+                return "403";
             }
         } else {
-            return "/fail";
+            return "fail";
         }
     }
 
@@ -190,12 +190,12 @@ public class PostController {
                     Comment comment = optionalComment.get();
                     model.addAttribute("comment", comment);
                 }
-                return "/updateComment";
+                return "updateComment";
             } else {
-                return "/fail";
+                return "fail";
             }
         } else {
-            return "/fail";
+            return "fail";
         }
     }
 

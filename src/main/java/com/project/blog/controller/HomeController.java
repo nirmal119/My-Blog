@@ -103,7 +103,7 @@ public class HomeController {
         if (hasRole("ROLE_USER") || hasRole("ROLE_ADMIN")) {
             model.addAttribute("username", principal.getName());
         }
-        return "/home";
+        return "home";
     }
 
     @GetMapping("/filter")
@@ -133,7 +133,7 @@ public class HomeController {
         Page<Post> posts = postService.getPageOfFilteredPost(authors, tags, publishedAt, start, sortField, order);
         model.addAttribute("posts",posts);
         model.addAttribute("page",start);
-        return "/filter";
+        return "filter";
     }
 
     private boolean isPrincipalOwnerOfPost(Principal principal, Post post) {

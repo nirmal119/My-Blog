@@ -26,7 +26,7 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("user", new User());
-        return "/registration";
+        return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -51,6 +51,6 @@ public class RegistrationController {
             model.addAttribute("successMessage", "User has been registered successfully");
             model.addAttribute("user", new User());
         }
-        return "/registration";
+        return "registration";
     }
 }

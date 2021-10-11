@@ -82,10 +82,10 @@ public class CommentController {
                 commentService.delete(comment);
                 return "redirect:/";
             } else {
-                return "/403";
+                return "403";
             }
         } else {
-            return "/fail";
+            return "fail";
         }
     }
 
