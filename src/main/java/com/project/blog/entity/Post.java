@@ -19,9 +19,11 @@ public class Post {
     @Column(name="title")
     private String title;
 
+    @Lob
     @Column(name="excerpt")
     private String excerpt;
 
+    @Lob
     @Column(name="content")
     private String content;
 
