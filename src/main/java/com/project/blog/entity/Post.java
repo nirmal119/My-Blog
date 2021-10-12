@@ -19,12 +19,10 @@ public class Post {
     @Column(name="title")
     private String title;
 
-    @Column(name="excerpt")
-    @org.hibernate.annotations.Type( type = "text" )
+    @Column(name="excerpt", columnDefinition = "text")
     private String excerpt;
 
-    @Column(name="content")
-    @org.hibernate.annotations.Type( type = "text" )
+    @Column(name="content", columnDefinition = "text")
     private String content;
 
     @Column(name="author")
