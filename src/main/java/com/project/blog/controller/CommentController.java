@@ -33,7 +33,7 @@ public class CommentController {
                                 BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "/commentForm";
+            return "commentForm";
         } else {
             comment.setCreatedAt(new Timestamp(System.currentTimeMillis()));
             comment.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
@@ -48,7 +48,7 @@ public class CommentController {
         Comment comment = new Comment();
         comment.setPostId(id);
         model.addAttribute("newComment", comment);
-        return "/writeComment";
+        return "writeComment";
     }
 
     @RequestMapping(value = "/updateComment", method = RequestMethod.POST)
