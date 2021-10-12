@@ -65,7 +65,7 @@ public class PostController {
         }
 
         post.setTags(tagSet);
-        String excerpt = post.getContent().substring(0,500);
+        String excerpt = post.getContent().substring(0,200);
         post.setExcerpt(excerpt);
 
         if (bindingResult.hasErrors()) {
